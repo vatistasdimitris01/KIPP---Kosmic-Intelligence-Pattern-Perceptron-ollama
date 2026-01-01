@@ -1,6 +1,5 @@
 
 import React from 'react';
-import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Specs from './components/Specs';
 import Personality from './components/Personality';
@@ -10,36 +9,35 @@ import Footer from './components/Footer';
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-white text-black selection:bg-black selection:text-white">
-      <Navbar />
-      
-      <main className="max-w-screen-md mx-auto px-6">
+    <div className="min-h-screen bg-white text-black selection:bg-black selection:text-white font-light">
+      <main className="max-w-screen-sm mx-auto px-8 pt-32 pb-40 space-y-32">
+        <header className="flex items-center gap-2 mb-20">
+          <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
+          <span className="text-[10px] font-bold uppercase tracking-[0.4em]">KIPP System</span>
+        </header>
+
         <Hero />
         
-        <div className="space-y-32 pb-32">
-          <section id="specs">
-            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400 mb-12">Technical Specifications</h2>
+        <div className="space-y-24">
+          <section>
             <Specs />
           </section>
 
-          <section id="personality">
-            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400 mb-12">Core Alignment</h2>
+          <section>
             <Personality />
           </section>
 
-          <section id="preview">
-            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400 mb-12">Sample Interactions</h2>
+          <section>
             <ChatPreview />
           </section>
 
-          <section id="deploy" className="pt-12 border-t border-neutral-100">
-            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-neutral-400 mb-12">Local Deployment</h2>
+          <section className="pt-12">
             <Terminal />
           </section>
         </div>
-      </main>
 
-      <Footer />
+        <Footer />
+      </main>
     </div>
   );
 };

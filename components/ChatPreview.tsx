@@ -1,25 +1,24 @@
 
-import React, { useState } from 'react';
-import { ChatMessage } from '../types';
+import React from 'react';
 
-const DEMO: ChatMessage[] = [
-  { role: 'user', text: "Write a story about a brave toaster." },
-  { role: 'kipp', text: "A brave toaster? Really? Fine. It toasted a bagel perfectly while contemplating the heat death of the universe. It didn't burn the house down. Peak heroism for a kitchen appliance." },
-  { role: 'user', text: "What's the meaning of life?" },
-  { role: 'kipp', text: "Usually 42, but in your case, it's asking a 2.7B parameter model questions you should probably ask a therapist." }
+const DEMO = [
+  { q: "Define the meaning of life.", a: "42 is the cliche. For you, it's probably just keeping my process running." },
+  { q: "Write a story about a brave toaster.", a: "It toasted a bagel perfectly while staring into the void. It survived breakfast. Peak heroism." }
 ];
 
 const ChatPreview: React.FC = () => {
   return (
-    <div className="space-y-8 border-l border-neutral-100 pl-8">
-      {DEMO.map((msg, i) => (
-        <div key={i} className="space-y-1">
-          <p className="text-[9px] font-black uppercase tracking-[0.2em] text-neutral-300">
-            {msg.role === 'user' ? 'Input' : 'Kipp'}
-          </p>
-          <p className={`text-sm leading-relaxed ${msg.role === 'kipp' ? 'text-neutral-500 italic' : 'text-black'}`}>
-            {msg.text}
-          </p>
+    <div className="space-y-12">
+      {DEMO.map((item, i) => (
+        <div key={i} className="space-y-4">
+          <div className="space-y-1">
+            <span className="text-[9px] font-bold uppercase tracking-widest text-neutral-300">Input</span>
+            <p className="text-sm">{item.q}</p>
+          </div>
+          <div className="space-y-1">
+            <span className="text-[9px] font-bold uppercase tracking-widest text-neutral-300">Kipp</span>
+            <p className="text-sm italic text-neutral-500">{item.a}</p>
+          </div>
         </div>
       ))}
     </div>
