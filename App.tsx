@@ -10,13 +10,17 @@ import Footer from './components/Footer';
 const App: React.FC = () => {
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.1,
+      root: null,
+      threshold: 0.05,
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
+          // Once the element is active, we don't need to observe it anymore
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
@@ -24,7 +28,22 @@ const App: React.FC = () => {
     const elements = document.querySelectorAll('.reveal');
     elements.forEach((el) => observer.observe(el));
 
-    return () => observer.disconnect();
+    // Fallback: If for some reason the observer doesn't trigger (e.g. initial load glitch)
+    // reveal the top-most elements after a short delay.
+    const fallbackTimer = setTimeout(() => {
+        const topElements = document.querySelectorAll('.reveal:not(.active)');
+        topElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                el.classList.add('active');
+            }
+        });
+    }, 1000);
+
+    return () => {
+        observer.disconnect();
+        clearTimeout(fallbackTimer);
+    };
   }, []);
 
   return (
